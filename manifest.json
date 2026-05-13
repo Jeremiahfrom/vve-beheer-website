@@ -1,0 +1,62 @@
+{
+  "name": "VvE Beheer Collectief",
+  "short_name": "VvE Collectief",
+  "description": "Professioneel VvE-beheer in Haaglanden — administratief, financieel, technisch en juridisch beheer voor meer dan 860 VvE's.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d1f2d",
+  "theme_color": "#0d1f2d",
+  "lang": "nl",
+  "dir": "ltr",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "icons/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Schademelding doen",
+      "short_name": "Schademelding",
+      "description": "Meld direct een schade of calamiteit",
+      "url": "/schademelding.html",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Contact & Offerte",
+      "short_name": "Contact",
+      "description": "Vraag een offerte aan of neem contact op",
+      "url": "/contact.html",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

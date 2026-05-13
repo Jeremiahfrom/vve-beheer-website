@@ -1,0 +1,834 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PWA -->
+  <meta name="theme-color" content="#0d1f2d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="VvE Collectief">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <title>VvE Beheer Collectief — Professioneel VvE-beheer in Haaglanden</title>
+  <meta name="description" content="Meer dan 500 VvE's vertrouwen op VvE Beheer Collectief voor administratief, financieel, technisch en juridisch beheer. Transparant, persoonlijk en altijd bereikbaar.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="VvE Beheer Collectief — Professioneel VvE-beheer in Haaglanden">
+  <meta property="og:description" content="Meer dan 500 VvE's vertrouwen op ons voor transparant en persoonlijk VvE-beheer.">
+  <meta property="og:url" content="https://www.vvebeheercollectief.nl">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Gedeelde stijlen -->
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+    /* ── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+      overflow: hidden;
+    }
+    .hero__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px var(--gutter) 80px clamp(24px,6vw,80px);
+    }
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero__tag::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--gold);
+    }
+    .hero h1 {
+      font-size: clamp(42px, 5vw, 68px);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 26px;
+      letter-spacing: -1px;
+      max-width: 520px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero__desc {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(245,240,232,0.58);
+      max-width: 400px;
+      margin-bottom: 44px;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero__ghost {
+      color: rgba(245,240,232,0.65);
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color var(--transition);
+    }
+    .hero__ghost:hover { color: var(--cream); }
+    .hero__stats {
+      display: flex;
+      gap: 44px;
+      margin-top: 60px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(200,169,110,0.12);
+    }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .stat-num span { color: var(--gold); }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(245,240,232,0.38);
+      margin-top: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Hero rechts */
+    .hero__right {
+      position: relative;
+      background: var(--navy-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero__right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(200,169,110,0.07) 0%, transparent 60%);
+    }
+    .geo-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(200,169,110,0.08);
+      pointer-events: none;
+    }
+    .card-stack { position: relative; width: 320px; z-index: 1; }
+    .hcard {
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(200,169,110,0.13);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      backdrop-filter: blur(8px);
+      transition: transform var(--transition);
+    }
+    .hcard:hover { transform: translateX(4px); }
+    .hcard + .hcard { margin-top: 10px; }
+    .hcard__icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .hcard__icon svg { width: 18px; height: 18px; color: var(--gold); }
+    .hcard__title { font-size: 13px; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
+    .hcard__sub { font-size: 11px; color: rgba(245,240,232,0.38); }
+    .hcard__badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+      background: rgba(200,169,110,0.13);
+      color: var(--gold);
+    }
+
+    /* ── OVER ONS PREVIEW ──────────────────────────────────────── */
+    .over-ons-preview {
+      padding: clamp(72px, 8vw, 120px) var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(48px, 6vw, 80px);
+      align-items: center;
+      max-width: var(--max-w);
+      margin-inline: auto;
+    }
+    .over-ons-preview__text .section-head h2 { color: var(--navy); }
+    .over-ons-preview__text .section-head p { color: var(--text-muted); margin-bottom: 28px; }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .fact-item {
+      background: var(--cream-mid);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      border-left: 3px solid var(--gold);
+    }
+    .fact-num {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .fact-num span { color: var(--gold); }
+    .fact-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* ── HERO RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero__right { display: none; }
+      .hero__left { padding: 60px var(--gutter); }
+    }
+    @media (max-width: 768px) {
+      .over-ons-preview { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATIE ──────────────────────────────────────────────── -->
+<nav class="nav" id="main-nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">VvE Beheer <span>Collectief</span></a>
+
+    <ul class="nav__links">
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#pakketten">Pakketten</a></li>
+      <li><a href="over-ons.html">Over ons</a></li>
+      <li><a href="schademelding.html">Schademelding</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <a href="contact.html" class="nav__cta">Offerte aanvragen</a>
+
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobiel menu -->
+  <nav class="nav__mobile" id="nav-mobile">
+    <a href="#diensten">Diensten</a>
+    <a href="#pakketten">Pakketten</a>
+    <a href="over-ons.html">Over ons</a>
+    <a href="schademelding.html">Schademelding</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="nav__mobile-cta">Offerte aanvragen</a>
+  </nav>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero__glow-secondary" aria-hidden="true"></div>
+  <div class="hero__left">
+    <div class="hero__tag">Haaglanden · Opgericht 2007</div>
+
+    <h1>Uw VvE in <em>betrouwbare</em> handen</h1>
+
+    <p class="hero__desc">
+      Meer dan 500 VvE's vertrouwen op ons voor administratief, financieel,
+      technisch en juridisch beheer. Transparant, persoonlijk en altijd bereikbaar.
+    </p>
+
+    <div class="hero__actions">
+      <a href="contact.html" class="btn btn--gold">Vraag een offerte aan</a>
+      <a href="#diensten" class="hero__ghost">Bekijk onze diensten →</a>
+    </div>
+
+    <div class="hero__stats">
+      <div>
+        <div class="stat-num" data-count="500" data-suffix="+">500<span>+</span></div>
+        <div class="stat-label">Tevreden VvE's</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="17" data-suffix="+">17<span>+</span></div>
+        <div class="stat-label">Jaar ervaring</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="24" data-suffix="/7">24<span>/7</span></div>
+        <div class="stat-label">Noodlijn</div>
+      </div>
+      <div>
+        <div class="stat-num stat-num--text">Een hecht<br>team</div>
+        <div class="stat-label">Van specialisten</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__right">
+    <!-- Geometrische accenten -->
+    <div class="geo-circle" style="width:520px;height:520px;top:-90px;right:-130px;"></div>
+    <div class="geo-circle" style="width:320px;height:320px;bottom:30px;left:-70px;"></div>
+    <div class="geo-circle" style="width:160px;height:160px;top:50%;right:80px;transform:translateY(-50%);"></div>
+
+    <div class="card-stack">
+      <div class="hcard">
+        <div class="hcard__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="2"/>
+            <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+          </svg>
+        </div>
+        <div class="hcard__title">Administratief Beheer</div>
+        <div class="hcard__sub">Ledenadministratie · Vergaderingen · Jaarstukken</div>
+        <div class="hcard__badge">Volledig ontzorgd</div>
+      </div>
+
+      <div class="hcard">
+        <div class="hcard__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="hcard__title">Financieel Beheer</div>
+        <div class="hcard__sub">Begroting · MJOP · Debiteurenbeheer</div>
+        <div class="hcard__badge">Transparant all-in tarief</div>
+      </div>
+
+      <div class="hcard">
+        <div class="hcard__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M16.24 7.76a6 6 0 0 1 0 8.49"/>
+          </svg>
+        </div>
+        <div class="hcard__title">Schademelding</div>
+        <div class="hcard__sub">Direct melden · 24/7 noodtelefoon</div>
+        <div class="hcard__badge">Direct doorverbonden</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ───────────────────────────────────────────────── -->
+<div class="trust-bar" aria-hidden="true">
+  <div class="trust-bar__inner" id="trust-inner">
+    <!-- Dubbel voor naadloze loop -->
+    <div class="trust-item"><div class="trust-dot"></div> All-in tarief, geen verrassingen</div>
+    <div class="trust-item"><div class="trust-dot"></div> Een team van specialisten</div>
+    <div class="trust-item"><div class="trust-dot"></div> 24/7 noodtelefoon</div>
+    <div class="trust-item"><div class="trust-dot"></div> Actief in heel Haaglanden</div>
+    <div class="trust-item"><div class="trust-dot"></div> Opgericht door appartementseigenaren</div>
+    <div class="trust-item"><div class="trust-dot"></div> 500+ tevreden VvE's</div>
+    <div class="trust-item"><div class="trust-dot"></div> Persoonlijk aanspreekpunt</div>
+    <div class="trust-item"><div class="trust-dot"></div> MJOP & reservefonds advies</div>
+    <!-- Kopie voor loop -->
+    <div class="trust-item"><div class="trust-dot"></div> All-in tarief, geen verrassingen</div>
+    <div class="trust-item"><div class="trust-dot"></div> Een team van specialisten</div>
+    <div class="trust-item"><div class="trust-dot"></div> 24/7 noodtelefoon</div>
+    <div class="trust-item"><div class="trust-dot"></div> Actief in heel Haaglanden</div>
+    <div class="trust-item"><div class="trust-dot"></div> Opgericht door appartementseigenaren</div>
+    <div class="trust-item"><div class="trust-dot"></div> 500+ tevreden VvE's</div>
+    <div class="trust-item"><div class="trust-dot"></div> Persoonlijk aanspreekpunt</div>
+    <div class="trust-item"><div class="trust-dot"></div> MJOP & reservefonds advies</div>
+  </div>
+</div>
+
+<!-- ── DIENSTEN ────────────────────────────────────────────────── -->
+<section class="section" id="diensten">
+  <div class="container">
+    <div class="eyebrow">Wat wij doen</div>
+    <div class="section-head">
+      <h2>Compleet beheer, van <em>A tot Z</em></h2>
+      <p>Of het nu gaat om de administratie, financiën, onderhoud of juridische kwesties — wij regelen het voor u.</p>
+    </div>
+
+    <div class="diensten-grid">
+
+      <div class="dienst-card fade-in">
+        <div class="dienst-num">01</div>
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="2"/>
+            <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+          </svg>
+        </div>
+        <div class="dienst-title">Administratief Beheer</div>
+        <div class="dienst-desc">Ledenadministratie, vergaderingen organiseren en notuleren, jaarstukken opstellen en heldere communicatie met alle bewoners.</div>
+        <a href="diensten/administratief.html" class="dienst-link">Meer informatie →</a>
+      </div>
+
+      <div class="dienst-card fade-in">
+        <div class="dienst-num">02</div>
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+          </svg>
+        </div>
+        <div class="dienst-title">Financieel Beheer</div>
+        <div class="dienst-desc">Transparante verslaglegging, debiteurenbeheer, toekomstgerichte begrotingen en een solide MJOP voor uw reservefonds.</div>
+        <a href="diensten/financieel.html" class="dienst-link">Meer informatie →</a>
+      </div>
+
+      <div class="dienst-card fade-in">
+        <div class="dienst-num">03</div>
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <div class="dienst-title">Technisch Beheer</div>
+        <div class="dienst-desc">Onderhoudsplanning, directe opvolging van schademeldingen en coördinatie van reparaties, calamiteiten en periodiek onderhoud.</div>
+        <a href="diensten/technisch.html" class="dienst-link">Meer informatie →</a>
+      </div>
+
+      <div class="dienst-card fade-in">
+        <div class="dienst-num">04</div>
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="dienst-title">Juridisch Beheer</div>
+        <div class="dienst-desc">Begeleiding bij geschillen, contractbeheer en deskundig advies over wet- en regelgeving specifiek voor uw VvE-situatie.</div>
+        <a href="diensten/juridisch.html" class="dienst-link">Meer informatie →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── OVER ONS PREVIEW ─────────────────────────────────────────── -->
+<section style="background: var(--cream-mid); overflow: hidden;">
+  <div class="over-ons-preview">
+    <div class="over-ons-preview__text">
+      <div class="eyebrow">Wie wij zijn</div>
+      <div class="section-head">
+        <h2>Opgericht <em>door eigenaren,</em> voor eigenaren</h2>
+        <p>VvE Beheer Collectief is in 2007 opgericht vanuit de overtuiging dat VvE-beheer eerlijker, persoonlijker en transparanter kan. Geen verborgen kosten, geen callcenter — gewoon een vast aanspreekpunt dat uw complex kent.</p>
+      </div>
+      <a href="over-ons.html" class="btn btn--dark" style="margin-top: 8px;">Lees ons verhaal →</a>
+    </div>
+
+    <div class="facts-grid">
+      <div class="fact-item">
+        <div class="fact-num" data-count="500" data-suffix="+">500<span>+</span></div>
+        <div class="fact-label">VvE's onder beheer</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num" data-count="17" data-suffix="+">17<span>+</span></div>
+        <div class="fact-label">Jaar in het vak</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num fact-num--text">Ervaren<br>team</div>
+        <div class="fact-label">Van specialisten</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num" data-count="98" data-suffix="%">98<span>%</span></div>
+        <div class="fact-label">Klanttevredenheid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WAAROM ONS ───────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="eyebrow">Onze aanpak</div>
+    <div class="section-head">
+      <h2>Waarom 500+ VvE's voor ons <em>kiezen</em></h2>
+    </div>
+
+    <div class="usp-grid">
+      <div class="usp-card fade-in">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="usp-title">Transparant all-in tarief</div>
+        <div class="usp-desc">Één vast maandtarief, geen verborgen kosten, geen factuurverrassingen achteraf. U weet altijd waar u aan toe bent.</div>
+      </div>
+
+      <div class="usp-card fade-in">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="usp-title">Persoonlijk aanspreekpunt</div>
+        <div class="usp-desc">Geen callcenter, geen wachtmuziek. Elke VvE krijgt een vast contactpersoon die uw complex door en door kent.</div>
+      </div>
+
+      <div class="usp-card fade-in">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="usp-title">24/7 noodtelefoon</div>
+        <div class="usp-desc">Waterschade, brand of technische panne — onze noodlijn is dag en nacht bereikbaar voor spoedsituaties in uw complex.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PAKKETTEN ───────────────────────────────────────────────── -->
+<section class="section section--dark" id="pakketten">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold)">Pakketten</div>
+    <div class="section-head section-head--light">
+      <h2>Kies het pakket dat <em>past bij uw VvE</em></h2>
+      <p>Alle pakketten zijn all-in geprijsd, inclusief persoonlijk beheer en volledige administratie. Geen verborgen kosten.</p>
+    </div>
+
+    <div class="pakket-grid">
+
+      <div class="pakket-card fade-in">
+        <div class="pakket-name">Budget</div>
+        <div class="pakket-sub">Basisondersteuning voor kleine VvE's</div>
+        <ul class="pakket-features">
+          <li>Administratief beheer</li>
+          <li>Financieel beheer</li>
+          <li>Jaarstukken & begrotingen</li>
+          <li>Ledenadministratie</li>
+          <li>Persoonlijk aanspreekpunt</li>
+        </ul>
+        <a href="contact.html" class="pakket-cta">Offerte aanvragen</a>
+      </div>
+
+      <div class="pakket-card pakket-card--featured">
+        <div class="pakket-badge">Meest gekozen</div>
+        <div class="pakket-name">Basis</div>
+        <div class="pakket-sub">Uitgebreid beheer voor de meeste VvE's</div>
+        <ul class="pakket-features">
+          <li>Alles uit Budget</li>
+          <li>Vergaderingen organiseren & notuleren</li>
+          <li>Debiteurenbeheer</li>
+          <li>Communicatiebeheer bewoners</li>
+          <li>Online ledenportaal</li>
+        </ul>
+        <a href="contact.html" class="pakket-cta">Offerte aanvragen</a>
+      </div>
+
+      <div class="pakket-card fade-in">
+        <div class="pakket-name">Totaal</div>
+        <div class="pakket-sub">Volledige ontzorging, van A tot Z</div>
+        <ul class="pakket-features">
+          <li>Alles uit Basis</li>
+          <li>Technisch beheer & onderhoud</li>
+          <li>Juridisch beheer & advies</li>
+          <li>24/7 noodtelefoon</li>
+          <li>MJOP opstellen & bewaken</li>
+        </ul>
+        <a href="contact.html" class="pakket-cta">Offerte aanvragen</a>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:32px; font-size:13px; color:rgba(245,240,232,0.3);">
+      Alle prijzen op maat — afhankelijk van de grootte en complexiteit van uw VvE.
+      <a href="pakketten.html" style="color:var(--gold); margin-left:6px;">Zie volledig overzicht →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── REVIEWS ─────────────────────────────────────────────────── -->
+<section class="section section--dark" id="reviews" style="padding-top: 0;">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold)">Ervaringen</div>
+    <div class="section-head section-head--light">
+      <h2>Wat onze VvE's <em>over ons zeggen</em></h2>
+    </div>
+
+    <div class="reviews-grid">
+
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Eindelijk een beheerder die op de hoogte is van wat er speelt in ons complex. Altijd bereikbaar en denkt actief mee. De overstap was de beste beslissing van onze VvE."</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">M. van der Berg</div>
+            <div class="review-vve">Voorzitter VvE Ypenburgse Stinsen, Den Haag</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Transparant, eerlijk en betrokken. Wij weten precies wat er met ons geld gebeurt dankzij de heldere kwartaalrapportages. Ze reageren snel en denken proactief mee."</p>
+        <div class="review-author">
+          <div class="review-avatar">P</div>
+          <div>
+            <div class="review-name">P. Janssen</div>
+            <div class="review-vve">Penningmeester VvE Wateringseweg, Wateringen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Na jaren een slechte ervaring met een grote beheerketen zijn we blij met VvE Beheer Collectief. Klein genoeg om persoonlijk te zijn, groot genoeg om alles professioneel te regelen."</p>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div>
+            <div class="review-name">A. de Vries</div>
+            <div class="review-vve">Bestuurslid VvE Leidschendam-Voorburg</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA STRIP ────────────────────────────────────────────────── -->
+<div class="cta-strip">
+  <h2>Klaar om uw VvE professioneel te laten beheren?</h2>
+  <div class="cta-strip__actions">
+    <a href="contact.html" class="btn btn--dark">Vraag een offerte aan</a>
+    <a href="tel:0858000605" class="btn btn--outline-dark">Bel: 085-800 0605</a>
+  </div>
+</div>
+
+<!-- ── FAQ ────────────────────────────────────────────────────── -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="eyebrow" style="color:var(--gold);margin-bottom:12px;">Veelgestelde vragen</div>
+    <div class="section-head" style="margin-bottom:52px;max-width:100%;">
+      <h2 style="color:var(--navy);">Alles wat u wilt <em>weten</em></h2>
+    </div>
+
+    <!-- Over ons -->
+    <div class="faq-category">
+      <div class="faq-category-label">Over ons</div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Wie is VvE Beheer Collectief?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>VvE Beheer Collectief is een onafhankelijk VvE-beheerder in de regio Haaglanden, opgericht in 2007 door appartementseigenaren die beheer eerlijker en persoonlijker wilden organiseren. Wij beheren meer dan 500 VvE's en werken met een hecht team van specialisten die uw complex door en door kennen.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          In welke regio zijn jullie actief?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Wij zijn actief in de regio Haaglanden en omstreken, waaronder Den Haag, Westland, Delft, Leidschendam-Voorburg en omliggende gemeenten.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diensten & Pakketten -->
+    <div class="faq-category">
+      <div class="faq-category-label">Diensten &amp; Pakketten</div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Welke diensten bieden jullie aan?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Wij bieden vier vormen van beheer: administratief (ledenadministratie, vergaderingen, jaarstukken), financieel (begroting, MJOP, debiteurenbeheer), technisch (onderhoudsplanning, schademeldingen, reparaties) en juridisch (contractbeheer, geschillen, regelgeving). Afhankelijk van uw pakket krijgt u toegang tot één of meerdere van deze diensten.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Welke pakketten hebben jullie?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Wij bieden drie pakketten: Budget (basisondersteuning voor kleine VvE's), Basis (uitgebreid beheer, meest gekozen) en Totaal (volledige ontzorging inclusief technisch en juridisch beheer). Alle pakketten zijn all-in geprijsd zonder verborgen kosten.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Wat kost VvE-beheer bij jullie?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Onze tarieven zijn all-in en op maat — de prijs is afhankelijk van de grootte en complexiteit van uw VvE. Wij werken altijd met een transparant maandtarief zonder verrassingen achteraf. Vraag vrijblijvend een offerte aan voor een persoonlijke berekening.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Praktisch -->
+    <div class="faq-category">
+      <div class="faq-category-label">Praktisch</div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Hoe wisselen wij van VvE-beheerder?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Wisselen gaat eenvoudiger dan de meeste VvE's denken. Na uw akkoord verzorgen wij de volledige overdracht — wij nemen contact op met de vorige beheerder en regelen de dossieroverdracht, administratie en communicatie richting bewoners. U hoeft daar weinig voor te doen.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Hebben jullie een 24/7 noodlijn?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Ja. Voor spoedsituaties zoals waterschade, brand of technische storingen is onze noodtelefoon dag en nacht bereikbaar op 085-800 0605. Voor reguliere vragen zijn wij bereikbaar op werkdagen van 09:00 tot 13:00.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Wat is een MJOP en hebben wij dat nodig?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            <p>Een Meerjarenonderhoudsplan (MJOP) is een planning van alle verwachte onderhouds- en vervangingswerkzaamheden aan uw complex voor de komende 10 tot 15 jaar, inclusief kostenraming. Het helpt uw VvE om voldoende reservefonds op te bouwen en voorkomt verrassingen. Een actueel MJOP is voor de meeste VvE's wettelijk verplicht.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ── FOOTER ──────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container" style="max-width: var(--max-w); padding-inline: 0;">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">VvE Beheer <span>Collectief</span></div>
+        <p class="footer__tagline">Uw betrouwbare partner voor professioneel VvE-beheer in Haaglanden. Transparant, persoonlijk en altijd bereikbaar.</p>
+        <div class="footer__contact-row">
+          <a href="mailto:info@vvebeheercollectief.nl">info@vvebeheercollectief.nl</a>
+          <a href="tel:0858000605">085-800 0605</a>
+          <a href="#">Westlandseweg 7B, 2291 PG Wateringen</a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="diensten/administratief.html">Administratief Beheer</a></li>
+          <li><a href="diensten/financieel.html">Financieel Beheer</a></li>
+          <li><a href="diensten/technisch.html">Technisch Beheer</a></li>
+          <li><a href="diensten/juridisch.html">Juridisch Beheer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Bedrijf</h4>
+        <ul>
+          <li><a href="over-ons.html">Over ons</a></li>
+          <li><a href="over-ons.html#team">Team</a></li>
+          <li><a href="pakketten.html">Pakketten</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Direct</h4>
+        <ul>
+          <li><a href="schademelding.html">Schademelding doen</a></li>
+          <li><a href="contact.html">Offerte aanvragen</a></li>
+          <li><a href="#">Ledenportaal inloggen</a></li>
+          <li><a href="tel:0858000605">Noodtelefoon</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 VvE Beheer Collectief · KvK 12345678 · Wateringen</div>
+      <div class="footer__legal">
+        <a href="privacy.html">Privacybeleid</a>
+        <a href="privacy.html#voorwaarden">Algemene voorwaarden</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── JAVASCRIPT ──────────────────────────────────────────────── -->
+<script>
+  // Mobiel menu
+  const toggle = document.getElementById('nav-toggle');
+  const nav    = document.getElementById('main-nav');
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('nav--mobile-open');
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+  });
+
+  // Sluit menu bij klik op link
+  document.querySelectorAll('.nav__mobile a').forEach(a => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('nav--mobile-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Nav schaduw bij scrollen
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.25)' : 'none';
+  }, { passive: true });
+</script>
+
+
+<script src="js/animations.js"></script>
+
+<!-- Service Worker registratie -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('[SW] Geregistreerd:', reg.scope))
+        .catch(err => console.warn('[SW] Registratie mislukt:', err));
+    });
+  }
+</script>
+</body>
+</html>

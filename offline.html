@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PWA -->
+  <meta name="theme-color" content="#0d1f2d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="VvE Collectief">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <title>Geen verbinding — VvE Beheer Collectief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1f2d;
+      --navy-mid: #162c3e;
+      --gold: #c8a96e;
+      --cream: #f5f0e8;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--cream);
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      text-align: center;
+    }
+    .offline-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid rgba(200,169,110,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .offline-icon svg {
+      width: 36px;
+      height: 36px;
+      color: var(--gold);
+    }
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      margin-bottom: 40px;
+      opacity: 0.6;
+    }
+    .logo span { opacity: 0.5; }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(245,240,232,0.55);
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn--gold { background: var(--gold); color: var(--navy); }
+    .btn--outline { background: transparent; border: 1px solid rgba(245,240,232,0.2); color: var(--cream); }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(200,169,110,0.2);
+      margin: 44px auto 32px;
+    }
+    .emergency {
+      font-size: 13px;
+      color: rgba(245,240,232,0.4);
+    }
+    .emergency a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .emergency a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="logo">VvE Beheer <span>Collectief</span></div>
+
+  <div class="offline-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="1" y1="1" x2="23" y2="23"/>
+      <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+      <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+      <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+      <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+      <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+      <circle cx="12" cy="20" r="1" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <h1>Geen <em>internetverbinding</em></h1>
+  <p>
+    U bekijkt de website momenteel offline. Controleer uw verbinding en probeer het opnieuw,
+    of bel onze noodlijn rechtstreeks.
+  </p>
+
+  <div class="actions">
+    <button class="btn btn--gold" onclick="window.location.reload()">
+      Opnieuw proberen
+    </button>
+    <a href="/" class="btn btn--outline">Naar homepage</a>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="emergency">
+    Spoedsituatie? Bel direct onze 24/7 noodlijn:
+    <a href="tel:0858000605">085-800 0605</a>
+  </div>
+
+
+<!-- Service Worker registratie -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('[SW] Geregistreerd:', reg.scope))
+        .catch(err => console.warn('[SW] Registratie mislukt:', err));
+    });
+  }
+</script>
+</body>
+</html>
