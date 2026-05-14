@@ -34,7 +34,7 @@
     /* ── HERO ──────────────────────────────────────────────────── */
     .hero {
       min-height: 100vh;
-      background: var(--navy);
+      background: linear-gradient(108deg, var(--navy) 38%, #16273c 100%);
       display: grid;
       grid-template-columns: 1fr 1fr;
       padding-top: 72px;
@@ -121,7 +121,7 @@
     /* Hero rechts */
     .hero__right {
       position: relative;
-      background: var(--navy-mid);
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -131,7 +131,16 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 70% 30%, rgba(200,169,110,0.07) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 70% 30%, rgba(200,169,110,0.08) 0%, transparent 55%);
+    }
+    .hero__right::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 140px;
+      background: linear-gradient(to right, var(--navy) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
     }
     .geo-circle {
       position: absolute;
@@ -139,38 +148,193 @@
       border: 1px solid rgba(200,169,110,0.08);
       pointer-events: none;
     }
-    .card-stack { position: relative; width: 320px; z-index: 1; }
-    .hcard {
-      background: rgba(245,240,232,0.04);
-      border: 1px solid rgba(200,169,110,0.13);
-      border-radius: var(--radius-lg);
-      padding: 22px 26px;
-      backdrop-filter: blur(8px);
-      transition: transform var(--transition);
+    /* Hero right — content stack */
+    .hero__right-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 340px;
+      z-index: 1;
+      position: relative;
     }
-    .hcard:hover { transform: translateX(4px); }
-    .hcard + .hcard { margin-top: 10px; }
-    .hcard__icon {
-      width: 34px; height: 34px;
-      border-radius: 8px;
-      background: var(--gold-dim);
+
+    /* Testimonial */
+    .h-testimonial {
+      background: rgba(245,240,232,0.05);
+      border: 1px solid rgba(200,169,110,0.18);
+      border-radius: 16px;
+      padding: 26px 28px;
+      backdrop-filter: blur(12px);
+    }
+    .h-testimonial__stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    .h-testimonial__quote {
+      font-size: 14px;
+      line-height: 1.72;
+      color: rgba(245,240,232,0.75);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .h-testimonial__author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .h-testimonial__avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(200,169,110,0.18);
+      border: 1px solid rgba(200,169,110,0.28);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
-    }
-    .hcard__icon svg { width: 18px; height: 18px; color: var(--gold); }
-    .hcard__title { font-size: 13px; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
-    .hcard__sub { font-size: 11px; color: rgba(245,240,232,0.38); }
-    .hcard__badge {
-      display: inline-block;
-      font-size: 10px;
+      font-family: 'Fraunces', serif;
+      font-size: 14px;
       font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-top: 10px;
-      background: rgba(200,169,110,0.13);
       color: var(--gold);
+      flex-shrink: 0;
+    }
+    .h-testimonial__name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .h-testimonial__role {
+      font-size: 11px;
+      color: rgba(245,240,232,0.38);
+      margin-top: 2px;
+    }
+
+    /* 3-step process strip */
+    .h-steps {
+      background: rgba(245,240,232,0.03);
+      border: 1px solid rgba(200,169,110,0.12);
+      border-radius: 12px;
+      padding: 14px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .h-steps__header {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: rgba(200,169,110,0.6);
+    }
+    .h-steps__row {
+      display: flex;
+      align-items: stretch;
+    }
+    .h-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 0 6px;
+    }
+    .h-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      height: 60%; width: 1px;
+      background: rgba(200,169,110,0.12);
+    }
+    .h-step__num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(200,169,110,0.14);
+      border: 1px solid rgba(200,169,110,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .h-step__label {
+      font-size: 10px;
+      line-height: 1.45;
+      color: rgba(245,240,232,0.55);
+    }
+
+    /* AI assistent badge */
+    .h-scan__ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(200,169,110,0.12);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 20px;
+      padding: 2px 8px;
+      margin-bottom: 6px;
+    }
+    .h-scan__ai-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.8;
+    }
+
+    /* VvE Scan teaser */
+    .h-scan {
+      background: linear-gradient(135deg, rgba(200,169,110,0.11) 0%, rgba(200,169,110,0.04) 100%);
+      border: 1px solid rgba(200,169,110,0.22);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.22s, background 0.22s;
+    }
+    .h-scan:hover {
+      border-color: rgba(200,169,110,0.42);
+      background: linear-gradient(135deg, rgba(200,169,110,0.17) 0%, rgba(200,169,110,0.07) 100%);
+    }
+    .h-scan:hover .h-scan__arrow { transform: translateX(3px); }
+    .h-scan__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .h-scan__desc {
+      font-size: 12px;
+      line-height: 1.45;
+      color: rgba(245,240,232,0.52);
+    }
+    .h-scan__arrow {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(200,169,110,0.16);
+      border: 1px solid rgba(200,169,110,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: transform 0.22s;
     }
 
     /* ── OVER ONS PREVIEW ──────────────────────────────────────── */
@@ -216,6 +380,605 @@
     @media (max-width: 768px) {
       .over-ons-preview { grid-template-columns: 1fr; }
     }
+
+  /* ── NEW SECTION TOKENS ────────────────────────────────────── */
+  :root {
+    --serif: 'Fraunces', serif;
+    --sans:  'DM Sans', sans-serif;
+    --mono:  'DM Sans', sans-serif;
+    --bg-elev:     #162028;
+    --bg-card:     #1a2d3e;
+    --bg-card-hi:  #213649;
+    --fg:          var(--cream);
+    --fg-strong:   var(--cream);
+    --fg-muted:    rgba(245,240,232,0.68);
+    --fg-dim:      rgba(245,240,232,0.45);
+    --line:        rgba(245,240,232,0.10);
+    --line-strong: rgba(245,240,232,0.22);
+    --gold-soft:   rgba(200,169,110,0.14);
+    --gold-soft-2: rgba(200,169,110,0.06);
+    --on-gold:     #0d1f2d;
+  }
+
+  /* Eyebrow label shared by new sections */
+  .vbc-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  /* ── HERO VERTICAL DIVIDER ─────────────────────────────────── */
+  .hero__left {
+    border-right: 1px solid rgba(200,169,110,0.22);
+  }
+
+  /* ── HERO BUILDING ILLUSTRATION ────────────────────────────── */
+  .hero__right {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero__building-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero__building-label {
+    position: absolute;
+    top: 36px;
+    left: 40px;
+    z-index: 2;
+  }
+  .hero__building-label-top {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.75;
+  }
+  .hero__building-label-sub {
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.32);
+    margin-top: 4px;
+  }
+
+  /* ── DIENSTEN SECTION (new) ────────────────────────────────── */
+  .vbc-diensten {
+    background: var(--navy);
+    padding: 80px clamp(24px, 5vw, 64px) 100px;
+  }
+  .vbc-diensten__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .vbc-diensten__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .vbc-diensten__header h2 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: var(--fg-strong);
+    margin-top: 16px;
+    max-width: 600px;
+  }
+  .vbc-diensten__header h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .vbc-diensten__intro {
+    font-size: 16px;
+    color: var(--fg-muted);
+    max-width: 360px;
+    line-height: 1.6;
+  }
+  .vbc-diensten__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) {
+    .vbc-diensten__grid { grid-template-columns: 1fr; }
+    .vbc-diensten__header { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* Dienst card */
+  .vbc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px 36px 36px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 14px;
+    min-height: 320px;
+    transition: transform 240ms ease, background 240ms ease, border-color 240ms ease;
+    cursor: default;
+  }
+  .vbc-card:hover {
+    transform: translateY(-4px);
+    background: var(--bg-card-hi);
+    border-color: var(--line-strong);
+  }
+  .vbc-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .vbc-card__icon {
+    width: 48px; height: 48px;
+    border-radius: 3px;
+    background: var(--gold-soft);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 220ms ease, color 220ms ease;
+    flex-shrink: 0;
+  }
+  .vbc-card:hover .vbc-card__icon {
+    background: var(--gold);
+    color: var(--on-gold);
+  }
+  .vbc-card__num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--fg-dim);
+  }
+  .vbc-card__title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 300;
+    color: var(--fg-strong);
+    line-height: 1.1;
+  }
+  .vbc-card__pitch {
+    font-size: 14.5px;
+    color: var(--fg-muted);
+    line-height: 1.6;
+  }
+  .vbc-card__reveal {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .vbc-card:hover .vbc-card__reveal {
+    max-height: 200px;
+  }
+  .vbc-card__points {
+    border-top: 1px solid var(--line);
+    margin-top: 12px;
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .vbc-card__point {
+    font-size: 13px;
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .vbc-card__point::before {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    border-radius: 2px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .vbc-card__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-muted);
+    transition: color 200ms ease;
+    text-decoration: none;
+  }
+  .vbc-card:hover .vbc-card__link {
+    color: var(--gold);
+  }
+
+  /* ── PROCESS SECTION ───────────────────────────────────────── */
+  .vbc-process {
+    background: var(--bg-elev);
+    padding: 100px clamp(24px, 5vw, 64px);
+  }
+  .vbc-process__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .vbc-process__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .vbc-process__header h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: var(--fg-strong);
+    margin-top: 16px;
+  }
+  .vbc-process__header h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .vbc-process__hint {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--fg-muted);
+    flex-shrink: 0;
+  }
+  .vbc-process__hint svg { flex-shrink: 0; }
+
+  .vbc-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .vbc-timeline__line {
+    position: absolute;
+    left: 29px; top: 30px; bottom: 30px;
+    width: 1px;
+    background: var(--line-strong);
+    pointer-events: none;
+  }
+  .vbc-step {
+    display: flex;
+    gap: 26px;
+    padding: 22px 0;
+    position: relative;
+    cursor: pointer;
+    border-bottom: 1px solid var(--line);
+  }
+  .vbc-step:last-child { border-bottom: none; }
+  .vbc-step__circle {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 1px solid var(--line-strong);
+    color: var(--fg-muted);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-weight: 600; font-size: 14px;
+    transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+    flex-shrink: 0;
+    position: relative; z-index: 2;
+  }
+  .vbc-step.is-active .vbc-step__circle {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--on-gold);
+  }
+  .vbc-step__body {
+    flex: 1;
+    padding-top: 6px;
+  }
+  .vbc-step__title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .vbc-step__title {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 300;
+    color: var(--fg-strong);
+    line-height: 1.1;
+  }
+  .vbc-step__dur {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .vbc-step__desc {
+    font-size: 15px;
+    color: var(--fg-muted);
+    margin-top: 6px;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+
+  /* ── SCHADE PROMO SECTION ──────────────────────────────────── */
+  .vbc-schade {
+    background: var(--navy);
+    padding: 100px clamp(24px, 5vw, 64px);
+  }
+  .vbc-schade__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .vbc-schade__inner { grid-template-columns: 1fr; gap: 48px; }
+  }
+  .vbc-schade__left h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: var(--fg-strong);
+    margin-top: 16px;
+  }
+  .vbc-schade__left h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .vbc-schade__desc {
+    font-size: 17px;
+    color: var(--fg-muted);
+    margin-top: 24px;
+    line-height: 1.6;
+    max-width: 460px;
+  }
+  .vbc-schade__usps {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .vbc-schade__usp {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .vbc-schade__check {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .vbc-schade__usp-title {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 300;
+    color: var(--fg-strong);
+  }
+  .vbc-schade__usp-sub {
+    font-size: 13.5px;
+    color: var(--fg-muted);
+    margin-top: 2px;
+  }
+
+  /* Schade flow card */
+  .vbc-flow {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 28px;
+    min-height: 380px;
+  }
+  .vbc-flow__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+  .vbc-flow__head h3 {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--fg-strong);
+    margin-top: 6px;
+  }
+  .vbc-flow__head h3 em { font-style: italic; color: var(--gold); }
+  .vbc-flow__progress {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .vbc-flow__bar {
+    width: 26px; height: 3px;
+    border-radius: 2px;
+    background: var(--line-strong);
+    transition: background 240ms ease;
+  }
+  .vbc-flow__bar.done { background: var(--gold); }
+
+  /* Step 0 — Type selection */
+  .vbc-flow__label {
+    font-size: 13.5px;
+    color: var(--fg-muted);
+    margin-bottom: 14px;
+  }
+  .vbc-flow__types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .vbc-flow__type-btn {
+    padding: 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 160ms ease, background 160ms ease;
+    text-align: left;
+  }
+  .vbc-flow__type-btn:hover {
+    border-color: var(--gold);
+    background: var(--gold-soft);
+  }
+  .vbc-flow__type-icon { color: var(--gold); display: flex; }
+  .vbc-flow__type-left { display: flex; align-items: center; gap: 10px; }
+  .vbc-flow__type-urg {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .vbc-flow__type-urg.urgent { color: var(--gold); }
+
+  /* Step 1 — Details form */
+  .vbc-flow__type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--fg-muted);
+    margin-bottom: 14px;
+  }
+  .vbc-flow__badge-pill {
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: var(--gold-soft);
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .vbc-field {
+    width: 100%;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 10px 14px;
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color 160ms ease;
+  }
+  .vbc-field:focus { border-color: var(--gold); }
+  .vbc-field::placeholder { color: var(--fg-dim); }
+  .vbc-flow__form { display: flex; flex-direction: column; gap: 12px; }
+  .vbc-flow__photo {
+    border: 1px dashed var(--line-strong);
+    border-radius: 3px;
+    padding: 18px;
+    display: flex; align-items: center; gap: 12px;
+    color: var(--fg-muted); font-size: 13.5px;
+    background: var(--bg-elev);
+    cursor: pointer;
+  }
+  .vbc-flow__buttons {
+    display: flex; gap: 10px; margin-top: 18px;
+  }
+  .vbc-btn-ghost {
+    padding: 10px 18px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    color: var(--fg-muted);
+    font-family: var(--sans); font-size: 14px;
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+  .vbc-btn-ghost:hover { border-color: var(--fg-muted); color: var(--fg); }
+  .vbc-btn-primary {
+    flex: 1;
+    padding: 10px 18px;
+    background: var(--gold);
+    border: none;
+    border-radius: 2px;
+    color: var(--on-gold);
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background 160ms ease;
+  }
+  .vbc-btn-primary:hover { background: var(--gold-light); }
+
+  /* Step 2 — Confirmation */
+  .vbc-flow__confirm {
+    text-align: center;
+    padding: 20px 0;
+  }
+  .vbc-flow__check-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .vbc-flow__confirm h4 {
+    font-family: var(--serif);
+    font-size: 26px; font-weight: 300;
+    color: var(--fg-strong);
+  }
+  .vbc-flow__confirm-sub {
+    font-size: 14px; color: var(--fg-muted);
+    margin-top: 8px; max-width: 320px;
+    margin-left: auto; margin-right: auto;
+  }
+  .vbc-flow__ticket {
+    margin: 20px auto 0;
+    padding: 10px 14px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-family: var(--mono); font-size: 11px; color: var(--fg-muted);
+    display: inline-flex; gap: 10px;
+  }
+  .vbc-flow__ticket-label { color: var(--fg-dim); }
+  .vbc-flow__ticket-num { color: var(--fg-strong); }
+  .vbc-flow__reset {
+    margin-top: 18px;
+    background: transparent; color: var(--fg);
+    padding: 6px 0;
+    border: none; border-bottom: 1px solid var(--line-strong);
+    font-family: var(--sans); font-weight: 500; font-size: 14.5px;
+    cursor: pointer;
+    transition: border-color 160ms ease;
+  }
+  .vbc-flow__reset:hover { border-color: var(--fg-muted); }
+
+  @keyframes vbc-tick {
+    from { stroke-dashoffset: 24; }
+    to   { stroke-dashoffset: 0; }
+  }
   </style>
 </head>
 <body>
@@ -290,50 +1053,17 @@
   </div>
 
   <div class="hero__right">
-    <!-- Geometrische accenten -->
-    <div class="geo-circle" style="width:520px;height:520px;top:-90px;right:-130px;"></div>
-    <div class="geo-circle" style="width:320px;height:320px;bottom:30px;left:-70px;"></div>
-    <div class="geo-circle" style="width:160px;height:160px;top:50%;right:80px;transform:translateY(-50%);"></div>
+    <!-- Geometrische achtergrondcirkel -->
+    <div class="geo-circle" style="width:480px;height:480px;top:-60px;right:-100px;"></div>
 
-    <div class="card-stack">
-      <div class="hcard">
-        <div class="hcard__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-            <rect x="9" y="3" width="6" height="4" rx="2"/>
-            <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
-          </svg>
-        </div>
-        <div class="hcard__title">Administratief Beheer</div>
-        <div class="hcard__sub">Ledenadministratie · Vergaderingen · Jaarstukken</div>
-        <div class="hcard__badge">Volledig ontzorgd</div>
-      </div>
-
-      <div class="hcard">
-        <div class="hcard__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
-            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="hcard__title">Financieel Beheer</div>
-        <div class="hcard__sub">Begroting · MJOP · Debiteurenbeheer</div>
-        <div class="hcard__badge">Transparant all-in tarief</div>
-      </div>
-
-      <div class="hcard">
-        <div class="hcard__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M16.24 7.76a6 6 0 0 1 0 8.49"/>
-          </svg>
-        </div>
-        <div class="hcard__title">Schademelding</div>
-        <div class="hcard__sub">Direct melden · 24/7 noodtelefoon</div>
-        <div class="hcard__badge">Direct doorverbonden</div>
-      </div>
+    <!-- Label boven de illustratie -->
+    <div class="hero__building-label">
+      <div class="hero__building-label-top">VvE Complex &middot; Haaglanden</div>
+      <div class="hero__building-label-sub">01 &mdash; Architecturaal silhouet</div>
     </div>
+
+    <!-- Building SVG wordt gegenereerd door buildingSVG() in de script sectie -->
+    <div class="hero__building-wrap" id="hero-building"></div>
   </div>
 </section>
 
@@ -361,68 +1091,173 @@
   </div>
 </div>
 
-<!-- ── DIENSTEN ────────────────────────────────────────────────── -->
-<section class="section" id="diensten">
-  <div class="container">
-    <div class="eyebrow">Wat wij doen</div>
-    <div class="section-head">
-      <h2>Compleet beheer, van <em>A tot Z</em></h2>
-      <p>Of het nu gaat om de administratie, financiën, onderhoud of juridische kwesties — wij regelen het voor u.</p>
+<!-- ── DIENSTEN (nieuw) ─────────────────────────────────────── -->
+<section class="vbc-diensten" id="diensten">
+  <div class="vbc-diensten__inner">
+    <div class="vbc-diensten__header">
+      <div>
+        <span class="vbc-eyebrow">Wat wij doen</span>
+        <h2>Compleet beheer, van <em>A tot Z</em></h2>
+      </div>
+      <p class="vbc-diensten__intro">
+        Of het nu gaat om administratie, financiën of onderhoud — wij regelen het voor u.
+      </p>
     </div>
 
-    <div class="diensten-grid">
+    <div class="vbc-diensten__grid">
 
-      <div class="dienst-card fade-in">
-        <div class="dienst-num">01</div>
-        <div class="dienst-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-            <rect x="9" y="3" width="6" height="4" rx="2"/>
-            <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
-          </svg>
+      <!-- Kaart 1 — Administratief -->
+      <div class="vbc-card">
+        <div class="vbc-card__top">
+          <div class="vbc-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3v5h5"/><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            </svg>
+          </div>
+          <span class="vbc-card__num">01</span>
         </div>
-        <div class="dienst-title">Administratief Beheer</div>
-        <div class="dienst-desc">Ledenadministratie, vergaderingen organiseren en notuleren, jaarstukken opstellen en heldere communicatie met alle bewoners.</div>
-        <a href="diensten/administratief.html" class="dienst-link">Meer informatie →</a>
+        <div class="vbc-card__title">Administratief beheer</div>
+        <p class="vbc-card__pitch">Ledenadministratie, vergaderingen, notulen, post — gestructureerd en navolgbaar.</p>
+        <div class="vbc-card__reveal">
+          <ul class="vbc-card__points">
+            <li class="vbc-card__point">Vergaderingen + notulering</li>
+            <li class="vbc-card__point">Communicatie bewoners</li>
+            <li class="vbc-card__point">Officiële documenten</li>
+            <li class="vbc-card__point">Online ledenportaal</li>
+          </ul>
+        </div>
+        <a href="diensten/administratief.html" class="vbc-card__link">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="dienst-card fade-in">
-        <div class="dienst-num">02</div>
-        <div class="dienst-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="14" rx="2"/>
-            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
-          </svg>
+      <!-- Kaart 2 — Financieel -->
+      <div class="vbc-card">
+        <div class="vbc-card__top">
+          <div class="vbc-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8"/><path d="M9 9h4.5a1.5 1.5 0 0 1 0 3H10a1.5 1.5 0 0 0 0 3h4.5"/>
+            </svg>
+          </div>
+          <span class="vbc-card__num">02</span>
         </div>
-        <div class="dienst-title">Financieel Beheer</div>
-        <div class="dienst-desc">Transparante verslaglegging, debiteurenbeheer, toekomstgerichte begrotingen en een solide MJOP voor uw reservefonds.</div>
-        <a href="diensten/financieel.html" class="dienst-link">Meer informatie →</a>
+        <div class="vbc-card__title">Financieel beheer</div>
+        <p class="vbc-card__pitch">Transparante verwerking, debiteurenbeheer, jaarstukken en advies MJOP en reserveringen.</p>
+        <div class="vbc-card__reveal">
+          <ul class="vbc-card__points">
+            <li class="vbc-card__point">Maandelijkse rapportage</li>
+            <li class="vbc-card__point">Jaarrekening + begroting</li>
+            <li class="vbc-card__point">MJOP financieel</li>
+            <li class="vbc-card__point">Debiteurenbeheer</li>
+          </ul>
+        </div>
+        <a href="diensten/financieel.html" class="vbc-card__link">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="dienst-card fade-in">
-        <div class="dienst-num">03</div>
-        <div class="dienst-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-          </svg>
+      <!-- Kaart 3 — Technisch -->
+      <div class="vbc-card">
+        <div class="vbc-card__top">
+          <div class="vbc-card__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a4 4 0 0 0-5.1 5.1l-5.3 5.3a1.5 1.5 0 0 0 2.1 2.1l5.3-5.3a4 4 0 0 0 5.1-5.1l-2.4 2.4-1.8-1.8 2.4-2.4z"/>
+            </svg>
+          </div>
+          <span class="vbc-card__num">03</span>
         </div>
-        <div class="dienst-title">Technisch Beheer</div>
-        <div class="dienst-desc">Onderhoudsplanning, directe opvolging van schademeldingen en coördinatie van reparaties, calamiteiten en periodiek onderhoud.</div>
-        <a href="diensten/technisch.html" class="dienst-link">Meer informatie →</a>
+        <div class="vbc-card__title">Technisch beheer</div>
+        <p class="vbc-card__pitch">Onderhoudsplanning, dossiervorming, schadeafhandeling en aansturing aannemers.</p>
+        <div class="vbc-card__reveal">
+          <ul class="vbc-card__points">
+            <li class="vbc-card__point">24/7 storingsdienst</li>
+            <li class="vbc-card__point">Offerte-trajecten</li>
+            <li class="vbc-card__point">MJOP (meerjarenonderhoudsplan)</li>
+            <li class="vbc-card__point">Aannemers aansturen</li>
+          </ul>
+        </div>
+        <a href="diensten/technisch.html" class="vbc-card__link">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="dienst-card fade-in">
-        <div class="dienst-num">04</div>
-        <div class="dienst-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-          </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ── WERKWIJZE (process) ──────────────────────────────────────── -->
+<section class="vbc-process" id="werkwijze">
+  <div class="vbc-process__inner">
+    <div class="vbc-process__header">
+      <div>
+        <span class="vbc-eyebrow">Werkwijze</span>
+        <h2>Van offerte<br>tot <em>volledig beheer</em></h2>
+      </div>
+      <div class="vbc-process__hint">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v6"/><path d="M12 15v6"/><path d="M3 12h6"/><path d="M15 12h6"/>
+          <path d="M5.6 5.6l4.2 4.2"/><path d="M14.2 14.2l4.2 4.2"/>
+          <path d="M18.4 5.6l-4.2 4.2"/><path d="M9.8 14.2l-4.2 4.2"/>
+        </svg>
+        Beweeg over een stap
+      </div>
+    </div>
+
+    <div class="vbc-timeline" id="vbc-timeline">
+      <div class="vbc-timeline__line" aria-hidden="true"></div>
+
+      <div class="vbc-step is-active" data-step="0">
+        <div class="vbc-step__circle">01</div>
+        <div class="vbc-step__body">
+          <div class="vbc-step__title-row">
+            <span class="vbc-step__title">Heldere offerte</span>
+            <span class="vbc-step__dur">3 dagen</span>
+          </div>
+          <p class="vbc-step__desc">Binnen 3 werkdagen ligt er een transparante all-in offerte. Geen verborgen kosten, geen meerwerk-clausules.</p>
         </div>
-        <div class="dienst-title">Juridisch Beheer</div>
-        <div class="dienst-desc">Begeleiding bij geschillen, contractbeheer en deskundig advies over wet- en regelgeving specifiek voor uw VvE-situatie.</div>
-        <a href="diensten/juridisch.html" class="dienst-link">Meer informatie →</a>
       </div>
 
+      <div class="vbc-step" data-step="1">
+        <div class="vbc-step__circle">02</div>
+        <div class="vbc-step__body">
+          <div class="vbc-step__title-row">
+            <span class="vbc-step__title">Soepele overstap</span>
+            <span class="vbc-step__dur">4–6 weken</span>
+          </div>
+          <p class="vbc-step__desc">Wij doen de overdracht met uw vorige beheerder. U en uw leden merken er niets van — alleen dat het ineens beter loopt.</p>
+        </div>
+      </div>
+
+      <div class="vbc-step" data-step="2">
+        <div class="vbc-step__circle">03</div>
+        <div class="vbc-step__body">
+          <div class="vbc-step__title-row">
+            <span class="vbc-step__title">Eerste 100 dagen</span>
+            <span class="vbc-step__dur">100 dagen</span>
+          </div>
+          <p class="vbc-step__desc">In de eerste 100 dagen brengen we administratie, financiën en onderhoud volledig op orde. U krijgt wekelijks update.</p>
+        </div>
+      </div>
+
+      <div class="vbc-step" data-step="3">
+        <div class="vbc-step__circle">04</div>
+        <div class="vbc-step__body">
+          <div class="vbc-step__title-row">
+            <span class="vbc-step__title">Doorlopend beheer</span>
+            <span class="vbc-step__dur">doorlopend</span>
+          </div>
+          <p class="vbc-step__desc">Vast aanspreekpunt, kwartaalrapportages, jaarvergadering, MJOP. Alles loopt — zonder dat het bestuur het hoeft te trekken.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -505,6 +1340,161 @@
   </div>
 </section>
 
+<!-- ── SCHADE PROMO ─────────────────────────────────────────── -->
+<section class="vbc-schade" id="schademelding-promo">
+  <div class="vbc-schade__inner">
+
+    <!-- Links: USP kolom -->
+    <div class="vbc-schade__left">
+      <span class="vbc-eyebrow">Schademeldingen</span>
+      <h2>Lekkage? Schade?<br><em>Eén knop.</em></h2>
+      <p class="vbc-schade__desc">
+        Waterlekkage, brand of technische storing — meld het in 3 stappen en
+        wij komen direct in actie. Onze technische partners staan dag en nacht klaar
+        voor calamiteiten in uw complex.
+      </p>
+      <div class="vbc-schade__usps">
+        <div class="vbc-schade__usp">
+          <div class="vbc-schade__check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <div class="vbc-schade__usp-title">Reactie binnen 15 minuten</div>
+            <div class="vbc-schade__usp-sub">bij calamiteiten — telefonisch contact direct</div>
+          </div>
+        </div>
+        <div class="vbc-schade__usp">
+          <div class="vbc-schade__check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <div class="vbc-schade__usp-title">Vaste partners</div>
+            <div class="vbc-schade__usp-sub">loodgieters, glaszetters, elektriciens — geverifieerd</div>
+          </div>
+        </div>
+        <div class="vbc-schade__usp">
+          <div class="vbc-schade__check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <div class="vbc-schade__usp-title">Volledige afhandeling</div>
+            <div class="vbc-schade__usp-sub">wij regelen verzekering, factuur en oplevering</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rechts: Schade flow widget -->
+    <div class="vbc-flow" id="vbc-flow">
+      <div class="vbc-flow__head">
+        <div>
+          <span class="vbc-eyebrow">Schade melden</span>
+          <h3>Direct in <em>3 stappen</em> gemeld</h3>
+        </div>
+        <div class="vbc-flow__progress">
+          <div class="vbc-flow__bar done" id="vbc-bar-0"></div>
+          <div class="vbc-flow__bar" id="vbc-bar-1"></div>
+          <div class="vbc-flow__bar" id="vbc-bar-2"></div>
+        </div>
+      </div>
+
+      <!-- Stap 0: Type selecteren -->
+      <div id="vbc-step-0">
+        <div class="vbc-flow__label">Wat is er aan de hand?</div>
+        <div class="vbc-flow__types">
+          <button class="vbc-flow__type-btn" data-type="Waterlekkage" data-urg="Urgent" onclick="vbcSelectType(this)">
+            <span class="vbc-flow__type-left">
+              <span class="vbc-flow__type-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+              </span>
+              Waterlekkage
+            </span>
+            <span class="vbc-flow__type-urg urgent">Urgent</span>
+          </button>
+          <button class="vbc-flow__type-btn" data-type="Lift / installatie" data-urg="Hoog" onclick="vbcSelectType(this)">
+            <span class="vbc-flow__type-left">
+              <span class="vbc-flow__type-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.1 5.1l-5.3 5.3a1.5 1.5 0 0 0 2.1 2.1l5.3-5.3a4 4 0 0 0 5.1-5.1l-2.4 2.4-1.8-1.8 2.4-2.4z"/></svg>
+              </span>
+              Lift / installatie
+            </span>
+            <span class="vbc-flow__type-urg">Hoog</span>
+          </button>
+          <button class="vbc-flow__type-btn" data-type="Glas / gevel" data-urg="Normaal" onclick="vbcSelectType(this)">
+            <span class="vbc-flow__type-left">
+              <span class="vbc-flow__type-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </span>
+              Glas / gevel
+            </span>
+            <span class="vbc-flow__type-urg">Normaal</span>
+          </button>
+          <button class="vbc-flow__type-btn" data-type="Stank / gas" data-urg="Urgent" onclick="vbcSelectType(this)">
+            <span class="vbc-flow__type-left">
+              <span class="vbc-flow__type-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+              </span>
+              Stank / gas
+            </span>
+            <span class="vbc-flow__type-urg urgent">Urgent</span>
+          </button>
+          <button class="vbc-flow__type-btn" data-type="Anders" data-urg="Normaal" onclick="vbcSelectType(this)" style="grid-column: span 2;">
+            <span class="vbc-flow__type-left">
+              <span class="vbc-flow__type-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5"/><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+              </span>
+              Anders
+            </span>
+            <span class="vbc-flow__type-urg">Normaal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stap 1: Details (verborgen) -->
+      <div id="vbc-step-1" style="display:none">
+        <div class="vbc-flow__type-badge">
+          <span class="vbc-flow__badge-pill" id="vbc-selected-type">Type</span>
+          Geef ons wat details
+        </div>
+        <div class="vbc-flow__form">
+          <input class="vbc-field" type="text" placeholder="Locatie in het complex (bv. trappenhuis 3e verdieping)">
+          <textarea class="vbc-field" rows="3" placeholder="Korte omschrijving" style="resize:vertical"></textarea>
+          <div class="vbc-flow__photo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l2-3h4l2 3"/></svg>
+            <span>Foto toevoegen (optioneel)</span>
+          </div>
+        </div>
+        <div class="vbc-flow__buttons">
+          <button class="vbc-btn-ghost" onclick="vbcGoStep(0)">Terug</button>
+          <button class="vbc-btn-primary" onclick="vbcGoStep(2)">
+            Versturen
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stap 2: Bevestiging (verborgen) -->
+      <div id="vbc-step-2" style="display:none">
+        <div class="vbc-flow__confirm">
+          <div class="vbc-flow__check-circle">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5" id="vbc-tick-path" style="stroke-dasharray:24;stroke-dashoffset:24"/>
+            </svg>
+          </div>
+          <h4>Gemeld. We pakken het op.</h4>
+          <p class="vbc-flow__confirm-sub">Bij urgente meldingen belt onze 24/7 storingsdienst u binnen 15 minuten terug.</p>
+          <div class="vbc-flow__ticket">
+            <span class="vbc-flow__ticket-label">TICKET</span>
+            <span class="vbc-flow__ticket-num" id="vbc-ticket-num">#SCH-2026-0000</span>
+          </div>
+          <div><button class="vbc-flow__reset" onclick="vbcGoStep(0)">Nog een melding maken</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── PAKKETTEN ───────────────────────────────────────────────── -->
 <section class="section section--dark" id="pakketten">
   <div class="container">
@@ -549,7 +1539,6 @@
         <ul class="pakket-features">
           <li>Alles uit Basis</li>
           <li>Technisch beheer & onderhoud</li>
-          <li>Juridisch beheer & advies</li>
           <li>24/7 noodtelefoon</li>
           <li>MJOP opstellen & bewaken</li>
         </ul>
@@ -756,7 +1745,6 @@
           <li><a href="diensten/administratief.html">Administratief Beheer</a></li>
           <li><a href="diensten/financieel.html">Financieel Beheer</a></li>
           <li><a href="diensten/technisch.html">Technisch Beheer</a></li>
-          <li><a href="diensten/juridisch.html">Juridisch Beheer</a></li>
         </ul>
       </div>
 
@@ -792,6 +1780,91 @@
   </div>
 </footer>
 
+<!-- ── BUILDING SVG ────────────────────────────────────────── -->
+<script>
+(function () {
+  var container = document.getElementById('hero-building');
+  if (!container) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var W = 480, H = 500;
+  var WS = 6;  // window square size
+  var WG = 10; // window grid gap (center-to-center)
+
+  // Building definitions: x, y-from-top, width, cols, rows
+  var BUILDINGS = [
+    { x: 12,  y: 168, w: 64,  cols: 5, rows: 29 },
+    { x: 96,  y: 102, w: 88,  cols: 7, rows: 36 },
+    { x: 204, y: 52,  w: 80,  cols: 7, rows: 41 },
+    { x: 304, y: 124, w: 80,  cols: 7, rows: 33 },
+    { x: 404, y: 196, w: 64,  cols: 5, rows: 26 }
+  ];
+
+  // Lit windows: [buildingIndex, row, col]
+  var LIT = [
+    [0,3,1],[0,6,3],[0,9,0],[0,13,2],[0,17,4],[0,21,1],[0,25,3],
+    [1,2,2],[1,5,5],[1,8,1],[1,11,4],[1,15,0],[1,19,3],[1,23,6],[1,28,2],[1,32,5],
+    [2,1,2],[2,4,5],[2,7,1],[2,10,4],[2,13,0],[2,16,3],[2,19,6],[2,23,2],[2,27,5],[2,31,1],[2,35,4],[2,38,2],
+    [3,4,1],[3,7,4],[3,10,0],[3,14,3],[3,18,6],[3,22,2],[3,26,5],[3,29,1],
+    [4,2,1],[4,5,3],[4,9,0],[4,12,4],[4,16,2],[4,20,3],[4,23,1]
+  ];
+
+  // Build lit lookup
+  var litSet = {};
+  LIT.forEach(function(w) { litSet[w[0]+'-'+w[1]+'-'+w[2]] = true; });
+
+  // Create SVG
+  var svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  svg.setAttribute('aria-hidden', 'true');
+  svg.style.cssText = 'width:100%;height:100%;display:block;position:absolute;inset:0;';
+
+  // Ambient glow gradient
+  var defs = document.createElementNS(NS, 'defs');
+  var grad = document.createElementNS(NS, 'radialGradient');
+  grad.setAttribute('id', 'vbc-glow');
+  grad.setAttribute('cx', '55%'); grad.setAttribute('cy', '65%'); grad.setAttribute('r', '45%');
+  var s1 = document.createElementNS(NS, 'stop');
+  s1.setAttribute('offset', '0%');
+  s1.setAttribute('stop-color', '#c8a96e');
+  s1.setAttribute('stop-opacity', '0.06');
+  var s2 = document.createElementNS(NS, 'stop');
+  s2.setAttribute('offset', '100%');
+  s2.setAttribute('stop-color', '#c8a96e');
+  s2.setAttribute('stop-opacity', '0');
+  grad.appendChild(s1); grad.appendChild(s2);
+  defs.appendChild(grad);
+  svg.appendChild(defs);
+
+  var glowRect = document.createElementNS(NS, 'rect');
+  glowRect.setAttribute('width', W); glowRect.setAttribute('height', H);
+  glowRect.setAttribute('fill', 'url(#vbc-glow)');
+  svg.appendChild(glowRect);
+
+  // Render buildings as dot-grid windows
+  BUILDINGS.forEach(function (b, bi) {
+    for (var r = 0; r < b.rows; r++) {
+      for (var c = 0; c < b.cols; c++) {
+        var wx = b.x + 2 + c * WG;
+        var wy = b.y + 2 + r * WG;
+        if (wx + WS > b.x + b.w - 2) continue;
+        var isLit = litSet[bi + '-' + r + '-' + c];
+        var rect = document.createElementNS(NS, 'rect');
+        rect.setAttribute('x', wx); rect.setAttribute('y', wy);
+        rect.setAttribute('width', WS); rect.setAttribute('height', WS);
+        rect.setAttribute('rx', '1');
+        rect.setAttribute('fill', isLit ? '#c8a96e' : 'rgba(200,169,110,0.09)');
+        if (isLit) rect.setAttribute('fill-opacity', '0.72');
+        svg.appendChild(rect);
+      }
+    }
+  });
+
+  container.style.position = 'relative';
+  container.appendChild(svg);
+})();
+</script>
+
 <!-- ── JAVASCRIPT ──────────────────────────────────────────────── -->
 <script>
   // Mobiel menu
@@ -815,6 +1888,43 @@
   window.addEventListener('scroll', () => {
     nav.style.boxShadow = window.scrollY > 20 ? '0 2px 24px rgba(0,0,0,0.25)' : 'none';
   }, { passive: true });
+
+  // Process timeline — hover to activate step
+  var timelineSteps = document.querySelectorAll('#vbc-timeline .vbc-step');
+  timelineSteps.forEach(function(step) {
+    step.addEventListener('mouseenter', function() {
+      timelineSteps.forEach(function(s) { s.classList.remove('is-active'); });
+      step.classList.add('is-active');
+    });
+  });
+
+  // Schade flow state
+  var vbcCurrentType = '';
+
+  function vbcSelectType(btn) {
+    vbcCurrentType = btn.getAttribute('data-type');
+    document.getElementById('vbc-selected-type').textContent = vbcCurrentType;
+    vbcGoStep(1);
+  }
+
+  function vbcGoStep(step) {
+    [0, 1, 2].forEach(function(i) {
+      var el = document.getElementById('vbc-step-' + i);
+      if (el) el.style.display = i === step ? '' : 'none';
+      var bar = document.getElementById('vbc-bar-' + i);
+      if (bar) bar.classList.toggle('done', i <= step);
+    });
+    if (step === 2) {
+      var ticketEl = document.getElementById('vbc-ticket-num');
+      if (ticketEl) ticketEl.textContent = '#SCH-2026-' + (Math.floor(Math.random() * 9000) + 1000);
+      var tickPath = document.getElementById('vbc-tick-path');
+      if (tickPath) {
+        tickPath.style.animation = 'none';
+        tickPath.getBoundingClientRect(); // force reflow
+        tickPath.style.animation = 'vbc-tick 700ms ease forwards';
+      }
+    }
+  }
 </script>
 
 
