@@ -34,11 +34,20 @@
     /* ── HERO ──────────────────────────────────────────────────── */
     .hero {
       min-height: 100vh;
-      background: linear-gradient(108deg, var(--navy) 38%, #16273c 100%);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      background: linear-gradient(180deg, #0d1f2d 0%, #152c44 40%, #1a3f60 70%, #1e5070 100%);
+      position: relative;
       padding-top: 72px;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero__columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
     }
     .hero__left {
       display: flex;
@@ -134,13 +143,7 @@
       background: radial-gradient(ellipse at 70% 30%, rgba(200,169,110,0.08) 0%, transparent 55%);
     }
     .hero__right::after {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 140px;
-      background: linear-gradient(to right, var(--navy) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: 0;
+      display: none;
     }
     .geo-circle {
       position: absolute;
@@ -373,7 +376,7 @@
 
     /* ── HERO RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
+      .hero__columns { grid-template-columns: 1fr; }
       .hero__right { display: none; }
       .hero__left { padding: 60px var(--gutter); }
     }
@@ -412,11 +415,6 @@
     margin-bottom: 16px;
   }
 
-  /* ── HERO VERTICAL DIVIDER ─────────────────────────────────── */
-  .hero__left {
-    border-right: 1px solid rgba(200,169,110,0.22);
-  }
-
   /* ── HERO BUILDING ILLUSTRATION ────────────────────────────── */
   .hero__right {
     position: relative;
@@ -427,11 +425,9 @@
   }
   .hero__building-wrap {
     position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 280px;
+    height: 320px;
+    flex-shrink: 0;
   }
   .hero__building-label {
     position: absolute;
@@ -1017,53 +1013,49 @@
 <!-- ── HERO ───────────────────────────────────────────────────── -->
 <section class="hero" id="hero">
   <div class="hero__glow-secondary" aria-hidden="true"></div>
-  <div class="hero__left">
-    <div class="hero__tag">Haaglanden · Opgericht 2007</div>
+  <div class="hero__columns">
+    <div class="hero__left">
+      <div class="hero__tag">Haaglanden · Opgericht 2007</div>
 
-    <h1>Uw VvE in <em>betrouwbare</em> handen</h1>
+      <h1>Uw VvE in <em>betrouwbare</em> handen</h1>
 
-    <p class="hero__desc">
-      Meer dan 500 VvE's vertrouwen op ons voor administratief, financieel,
-      technisch en juridisch beheer. Transparant, persoonlijk en altijd bereikbaar.
-    </p>
+      <p class="hero__desc">
+        Meer dan 500 VvE's vertrouwen op ons voor administratief, financieel,
+        technisch en juridisch beheer. Transparant, persoonlijk en altijd bereikbaar.
+      </p>
 
-    <div class="hero__actions">
-      <a href="contact.html" class="btn btn--gold">Vraag een offerte aan</a>
-      <a href="#diensten" class="hero__ghost">Bekijk onze diensten →</a>
+      <div class="hero__actions">
+        <a href="contact.html" class="btn btn--gold">Vraag een offerte aan</a>
+        <a href="#diensten" class="hero__ghost">Bekijk onze diensten →</a>
+      </div>
+
+      <div class="hero__stats">
+        <div>
+          <div class="stat-num" data-count="500" data-suffix="+">500<span>+</span></div>
+          <div class="stat-label">Tevreden VvE's</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="17" data-suffix="+">17<span>+</span></div>
+          <div class="stat-label">Jaar ervaring</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="24" data-suffix="/7">24<span>/7</span></div>
+          <div class="stat-label">Noodlijn</div>
+        </div>
+        <div>
+          <div class="stat-num stat-num--text">Een hecht<br>team</div>
+          <div class="stat-label">Van specialisten</div>
+        </div>
+      </div>
     </div>
 
-    <div class="hero__stats">
-      <div>
-        <div class="stat-num" data-count="500" data-suffix="+">500<span>+</span></div>
-        <div class="stat-label">Tevreden VvE's</div>
-      </div>
-      <div>
-        <div class="stat-num" data-count="17" data-suffix="+">17<span>+</span></div>
-        <div class="stat-label">Jaar ervaring</div>
-      </div>
-      <div>
-        <div class="stat-num" data-count="24" data-suffix="/7">24<span>/7</span></div>
-        <div class="stat-label">Noodlijn</div>
-      </div>
-      <div>
-        <div class="stat-num stat-num--text">Een hecht<br>team</div>
-        <div class="stat-label">Van specialisten</div>
-      </div>
+    <div class="hero__right">
+      <!-- Geometrische achtergrondcirkel -->
+      <div class="geo-circle" style="width:480px;height:480px;top:-60px;right:-100px;"></div>
+
+      <!-- Building SVG wordt gegenereerd door buildingSVG() in de script sectie -->
+      <div class="hero__building-wrap" id="hero-building"></div>
     </div>
-  </div>
-
-  <div class="hero__right">
-    <!-- Geometrische achtergrondcirkel -->
-    <div class="geo-circle" style="width:480px;height:480px;top:-60px;right:-100px;"></div>
-
-    <!-- Label boven de illustratie -->
-    <div class="hero__building-label">
-      <div class="hero__building-label-top">VvE Complex &middot; Haaglanden</div>
-      <div class="hero__building-label-sub">01 &mdash; Architecturaal silhouet</div>
-    </div>
-
-    <!-- Building SVG wordt gegenereerd door buildingSVG() in de script sectie -->
-    <div class="hero__building-wrap" id="hero-building"></div>
   </div>
 </section>
 
